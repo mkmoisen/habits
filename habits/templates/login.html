@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %} Log In {% endblock %}
+
+{% block head %}
+
+<style>
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .links {
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    }
+
+    .links > li {
+        margin: 1rem;
+    }
+
+    .links > li > a {
+        padding: 1rem;
+    }
+
+    .links > li > a:hover {
+        background-color: lightgrey;
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block body %}
+<main>
+    <form method="POST" action="/login">
+        {{ form.hidden_tag() }}
+        <div class="vertical-form">
+
+            <div class="vertical-form-field-set">
+                <div>
+                    {{ form.username.label }}
+                </div>
+                <div>
+                    {{ form.username() }}
+                </div>
+            </div>
+
+            <div class="vertical-form-field-set">
+                <div>
+                    {{ form.password.label }}
+                </div>
+                <div>
+                    {{ form.password() }}
+                </div>
+            </div>
+
+            <div class="vertical-form-buttons">
+                <button type="submit">Log in</button>
+            </div>
+
+        </div>
+    </form>
+
+
+
+    <div>
+        <ul class="messages">
+            {% for category, message in get_flashed_messages(with_categories=true) %}
+            <li class="messages-{{category}}">
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <ul class="links">
+        <li>
+            <a href="/sign-up">Sign up here.</a>
+        </li>
+        <li>
+            <a href="/forgot-password">Forgot password?</a>
+        </li>
+    </ul>
+
+
+</main>
+{% endblock %}

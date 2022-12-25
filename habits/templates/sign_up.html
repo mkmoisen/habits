@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %} Sign Up {% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<main>
+    <h1> Sign Up</h1>
+
+    <form method="POST" action="/sign-up">
+        {{ form.hidden_tag() }}
+        <div class="vertical-form">
+            <div class="vertical-form-field-set">
+                <div>{{ form.username.label }}</div>
+                <div>{{ form.username() }}</div>
+            </div>
+            <div class="vertical-form-field-set">
+                <div>{{ form.email.label }}</div>
+                <div>{{ form.email(placeholder="optional") }}</div>
+
+            </div>
+            <div class="vertical-form-field-set">
+                <div>{{ form.password.label }}</div>
+                <div>{{ form.password() }}</div>
+
+            </div>
+            <div class="vertical-form-field-set">
+                <div>{{left}} {{operator}} {{right}} ==</div>
+                <div>{{ form.spam_check() }}</div>
+            </div>
+            <div class="vertical-form-buttons">
+                <button type="submit">Sign Up</button>
+            </div>
+        </div>
+
+    </form>
+
+    <div>
+        <ul class="messages">
+            {% for category, message in get_flashed_messages(with_categories=True) %}
+            <li class="messages-{{category}}">
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</main>
+
+{% endblock %}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="author" content="Matthew Moisen" />
+    <meta name="description" content="Habit tracking application" />
+
+    <style>
+        * {
+            font-family: Roboto,sans-serif;
+        }
+
+        button {
+            text-decoration: none;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            border: none;
+        }
+
+        .navigation-bar {
+            display: flex;
+            flex-direction: row
+        }
+
+        .navigation-bar > li {
+            margin: 0rem;
+            padding: 0rem;
+            list-style-type: none;
+        }
+
+        .navigation-bar > li > a {
+            padding: 1rem;
+        }
+
+        .navigation-bar > li > a:hover {
+            background-color: lightgrey;
+        }
+
+        a:link, a:visited {
+            text-decoration: none;
+            color: black;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .messages {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .messages > li {
+            margin: 1rem;
+            padding: 1rem;
+            border-radius: 0.25rem;
+        }
+
+        .messages-error {
+            background-color: #ff8080;
+        }
+
+        .messages-success {
+            background-color: #80ff80;
+        }
+
+
+        .vertical-form {
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            padding: 1rem 1rem 1rem 1rem;
+        }
+
+        .vertical-form-field-set > div {
+            margin: 0.25rem;
+        }
+
+        .vertical-form-field-set > div > input {
+            border-radius: 0.25rem;
+            padding: 0.5rem 0rem 0.5rem 0.75rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            font-size: 100%;
+
+        }
+
+        .vertical-form-field-set > div > select {
+            border-radius: 0.25rem;
+            padding: 0.5rem 0rem 0.5rem 0.75rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            font-size: 100%;
+            width: 100%
+        }
+
+        .vertical-form-field-set > div > textarea {
+            border-radius: 0.25rem;
+            padding: 0.5rem 0.rem 0.5rem 0.75rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            font-size: 100%;
+            width: 100%
+        }
+
+        .vertical-form-buttons{
+            margin-top: 0.25rem;
+        }
+
+
+    </style>
+    {% block head %}{% endblock %}
+</head>
+<body>
+<header>
+    <nav>
+        <ul class="navigation-bar" role="tablist">
+
+            <li role="tab"><a href="/">Calendar</a></li>
+
+            <li role="tab"><a href="/habits">Habits</a></li>
+
+            <li role="tab"><a href="/account" >Account</a></li>
+
+            <li role="tab"><a href="/logout">Logout</a></li>
+
+        </ul>
+    </nav>
+</header>
+
+
+{% block body %}{% endblock %}
+
+</body>
+</html>

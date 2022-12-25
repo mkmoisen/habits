@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Account{% endblock %}
+
+{% block head %}
+    <style>
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 25vw;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .options > li {
+            margin: 1rem;
+            padding: 0rem;
+        }
+
+        .options > li > a {
+            padding: 1rem;
+        }
+
+        .options > li > a:hover {
+            background-color: lightgrey;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+<main>
+    <div>
+        <ul class="options">
+
+                <li><a href="/account/change-password">Change Password</a></li>
+
+                <li><a href="/account/change-email">Change Email</a></li>
+
+                <li><a href="/account/download-habit-calendar">Download Habit Calendar</a></li>
+
+                <li><a href="/account/delete-account">Delete Account</a></li>
+
+
+        </ul>
+    </div>
+</main>
+{% endblock %}

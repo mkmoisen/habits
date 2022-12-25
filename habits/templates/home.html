@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block title %} Habit Calendar {% endblock %}
+
+{% block head %}
+    <style>
+
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+
+        }
+
+        .flex-container > div {
+            margin: 10px;
+            padding: 10px;
+            border-width: 1px;
+            border-style: solid;
+            height: 100px;
+            width: 100px;
+
+        }
+
+        .day-number {
+            text-align: center;
+        }
+
+        .habit {
+            padding: 2px;
+        }
+
+        .modal {
+            visibility: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+    <script type="text/javascript">
+
+        window.onload = async function() {
+            let response = await get_streaks();
+
+            update_habit_streaks(response['items']);
+        };
+
+        async function habit_checkbox(checkbox, habit_date, habit_id) {
+            let response = null;
+            if (checkbox.checked) {
+                display_modal();
+                response = await put_habit_log(habit_date, habit_id);
+                confetti(checkbox);
+
+            } else {
+                hide_modal();
+                response = await delete_habit_log(habit_date, habit_id);
+            }
+
+            response = await get_streaks();
+
+            update_habit_streaks(response['items']);
+
+            console.log(response);
+        };
+
+        function display_modal() {
+            console.log('hi');
+            const modal = document.getElementById("modal");
+            console.log(modal);
+
+            modal.style.visibility = "visible";
+            console.log(modal);
+
+            window.addEventListener("click", (event) => {
+                if (event.target === modal) {
+                    hide_modal();
+                };
+            });
+        }
+
+        function hide_modal() {
+            const modal = document.getElementById("modal");
+
+            modal.style.visibility = "hidden";
+        }
+
+        function confetti(checkbox) {
+            party.confetti(
+                checkbox, {
+                    count: party.variation.range(40, 60),
+                    size: party.variation.range(1.5, 2.0),
+                    spread: party.variation.range(70, 80),
+                }
+            );
+        };
+
+        function update_habit_streaks(habit_streaks) {
+            console.log(habit_streaks);
+            const div = document.getElementById('habit_streaks');
+            let html = "";
+            html = "<table>";
+            habit_streaks.forEach((item) => {
+                html += "<tr><td>" + item['name'] + "</td><td>" + item['streak'] + "<td></tr>";
+            });
+            html += "</table>";
+
+            div.innerHTML = html;
+
+        }
+
+        async function put_habit_log(habit_date, habit_id) {
+            const response = await fetch(
+                '/habit-logs/' + habit_date + '/' + habit_id,
+                {
+                    method: 'PUT',
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    credentials: 'same-origin',
+                    headers: {
+                        "foo": "bar"
+                    }
+                }
+            );
+
+            const blob = await response.json();
+            return blob;
+        }
+
+        async function delete_habit_log(habit_date, habit_id) {
+            const response = await fetch(
+                '/habit-logs/' + habit_date + '/' + habit_id,
+                {
+                    method: 'DELETE',
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    credentials: 'same-origin',
+                    headers: {
+                        "foo": "bar"
+                    }
+                }
+            );
+            const blob = await response.json();
+            return blob;
+        }
+
+        async function get_streaks() {
+            const response = await fetch(
+                '/streaks'
+            );
+
+            const blob = await response.json();
+
+            return blob;
+        };
+
+    </script>
+{% endblock %}
+
+{% block body %}
+
+    <p>Hello {{username}} LOLb</p>
+
+
+    {% for row in rows%}
+    <div class="flex-container">
+        {% for habits_by_date in row %}
+        <div>
+            <div class="day-number">{{habits_by_date['date_string']}}</div>
+            {% for habit in habits_by_date['habits']  %}
+            <div class="habit">
+                <input
+                        type="checkbox"
+                        id="{{habits_by_date['date_string']}}_{{habit['id']}}"
+                        name="{{habits_by_date['date_string']}}_{{habit['id']}}"
+                        onclick="habit_checkbox(this, '{{habits_by_date['date_string']}}', {{habit['id']}});"
+                        {{ 'checked' if habit['completed'] else '' }}
+                />
+                <label for="{{habits_by_date['date_string']}}_{{habit['id']}}">{{habit['name']}}</label>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <div id="habit_streaks">
+        hi
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="vertical-form">
+
+                <div class="vertical-form-field-set">
+                    <div>
+                        Hi
+                    </div>
+                    <div>
+                        Bai
+                    </div>
+                </div>
+
+                <div class="vertical-form-field-set">
+                    <div>
+                        Hi
+                    </div>
+                    <div>
+                        Bai
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

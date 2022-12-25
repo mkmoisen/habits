@@ -1,0 +1,8 @@
+flask
+Flask-WTF
+peewee
+psycopg2
+passlib
+argon2-cffi
+cryptography
+gunicorn

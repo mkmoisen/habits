@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block body %}
+<main>
+    <div>
+        <p>Are you sure you want to delete your account?</p>
+
+        <p>This will <strong>permanently delete</strong> all of your data.</p>
+
+        <p>You can <a href="/account/download-habit-calendar">download</a> a copy of your data before you delete your
+            account.</p>
+    </div>
+
+
+    <form action="/account/delete-account" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="vertical-form">
+            <div class="vertical-form-field-set">
+                <div>
+                    {{ form.password.label() }}
+                </div>
+                <div>
+                    {{ form.password() }}
+                </div>
+            </div>
+
+            <div class="vertical-form-buttons">
+                <button type="submit">Delete My Account</button>
+            </div>
+        </div>
+
+
+
+    </form>
+
+</main>
+
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %} Habits {% endblock %}
+
+{% block head %}
+    <script src="https://cdn.tailwindcss.com"></script>
+{% endblock %}
+
+{% block body %}
+
+<div class="flex justify-center">
+    <div class="flex flex-col">
+        <table class="border-collapse border border-slate-400">
+            <tr>
+                <th class="border border-slate-300">Edit</th>
+                <th class="border border-slate-300">Name</th>
+                <th class="border border-slate-300">Days</th>
+                <th class="border border-slate-300">Start Date</th>
+                <th class="border border-slate-300">Delete</th>
+            </tr>
+        {% for habit in habits %}
+            <tr>
+                <td class="border border-slate-300">
+                    <a href="/habits/{{ habit['id'] }}/edit">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit
+                        </button>
+                    </a>
+                </td>
+                <td class="border border-slate-300">{{ habit['name'] }}</td>
+                <td class="border border-slate-300">{{ habit['days'] }}</td>
+                <td class="border border-slate-300">{{ habit['start_date'] }}</td>
+                <td class="border border-slate-300">
+                    <a href="/habits/{{ habit['id'] }}/delete">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+                    </a> <!-- bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded -->
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+
+        <div class="">
+    <form method="POST" action="/habits" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        {{ form.hidden_tag() }}
+
+        {{ form.name.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+        {{ form.name(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight
+        focus:outline-none focus:shadow-outline", ) }}
+
+        {{ form.name(class="py-2 px-3", ) }}
+
+        {{ form.days.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+        {{ form.days(class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2
+        pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline") }}
+
+        {{ form.start_date.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+        {{ form.start_date(class="block w-full bg-white border border-gray-400 hover:border-gray-500
+        px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline") }}
+        <input type="submit" value="save" class="btn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" />
+    </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <ul class="messages">
+        {% for category, message in get_flashed_messages(with_categories=True) %}
+        <li class="messages-{{category}}">
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

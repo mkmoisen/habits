@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %} Habits {% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+<main>
+    <table class="border-collapse border border-slate-400">
+        <tr>
+            <th class="border border-slate-300">Edit</th>
+            <th class="border border-slate-300">Name</th>
+            <th class="border border-slate-300">Days</th>
+            <th class="border border-slate-300">Start Date</th>
+            <th class="border border-slate-300">Delete</th>
+        </tr>
+        {% for habit in habits %}
+        <tr>
+            <td class="border border-slate-300">
+                <a href="/habits/{{ habit['id'] }}/edit">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit
+                    </button>
+                </a>
+            </td>
+            <td class="border border-slate-300">{{ habit['name'] }}</td>
+            <td class="border border-slate-300">{{ habit['days'] }}</td>
+            <td class="border border-slate-300">{{ habit['start_date'] }}</td>
+            <td class="border border-slate-300">
+                <a href="/habits/{{ habit['id'] }}/delete">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+                </a> <!-- bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded -->
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <form method="POST" action="/habits">
+        {{ form.hidden_tag() }}
+        <div class="vertical-form">
+            <div class="vertical-form-field-set">
+                <div>
+                    {{ form.name.label() }}
+                </div>
+                <div>
+                    {{ form.name() }}
+                </div>
+            </div>
+
+            <div class="vertical-form-field-set">
+                <div>
+                    {{ form.days.label() }}
+                </div>
+                <div>
+                    {{ form.days() }}
+                </div>
+            </div>
+
+            <div class="vertical-form-field-set">
+                <div>
+                    {{ form.start_date.label() }}
+                </div>
+                <div>
+                    {{ form.start_date() }}
+                </div>
+            </div>
+
+            <div class="vertical-form-field-set">
+                <div>
+                    {{ form.tags.label() }}
+                </div>
+                <div>
+                    {{ form.tags() }}
+                </div>
+            </div>
+
+            <div class="vertical-form-buttons">
+                <button type="submit">Save</button>
+            </div>
+        </div>
+    </form>
+
+
+    <div>
+        <ul class="messages">
+            {% for category, message in get_flashed_messages(with_categories=True) %}
+            <li class="messages-{{category}}">
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</main>
+
+
+
+{% endblock %}

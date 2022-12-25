@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<main>
+    <form action="/account/change-email" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="vertical-form">
+            <div class="vertical-form-field-set">
+                <div>
+                    {{ form.email.label() }}
+                </div>
+                <div>
+                    {{ form.email() }}
+                </div>
+            </div>
+
+            <div class="vertical-form-field-set">
+                <div>
+                    {{ form.confirm_email.label() }}
+                </div>
+                <div>
+                    {{ form.confirm_email() }}
+                </div>
+            </div>
+
+            <div class="vertical-form-field-set">
+                <div>
+                    {{ form.password.label() }}
+                </div>
+                <div>
+                    {{ form.password() }}
+                </div>
+            </div>
+
+            <div class="vertical-form-buttons">
+                <button type="submit">Change Email</button>
+            </div>
+        </div>
+    </form>
+
+    <div>
+        <ul class="messages">
+            {% for category, message in get_flashed_messages(with_categories=True) %}
+            <li class="messages-{{category}}">
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</main>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+version: '3'
+services:
+  webapp:
+    build: ./
+    depends_on:
+      - database
+    command: ['gunicorn', '--workers=1', '--threads=4', 'habits.app:create_app()', '--bind', '0.0.0.0:8000', '--reload']
+    ports:
+      - "80:8000"
+    environment:
+      - PYTHONUNBUFFERED=1  # Necessary to flush stdout immediately instead of buffering it for docker compose
+
+
+volumes:
+  database:
