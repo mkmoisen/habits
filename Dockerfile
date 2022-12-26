@@ -45,6 +45,8 @@ WORKDIR /app/habits/habits
 COPY . .
 
 
+EXPOSE 8000
+
 #CMD ["gunicorn", "habits.app:create_app()"]
 CMD python wsgi.py
 # 'gunicorn', '--workers=1', '--threads=4', 'habits.app:create_app()', '--reload']
