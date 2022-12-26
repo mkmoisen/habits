@@ -12,7 +12,9 @@
           "hostPort": 80,
           "containerPort": 8000
         }
-      ]
+      ],
+      "essential": true,
+      "memory": 128
     }
   ]
 }
