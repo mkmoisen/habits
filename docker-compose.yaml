@@ -1,9 +1,11 @@
 version: '3'
 services:
   webapp:
-    image: mkmoisen/habits:habits-webapp
-    command: ['gunicorn', '--workers=1', '--threads=4', 'habits.app:create_app()', '--bind', '0.0.0.0:8000', '--reload']
+    # image: mkmoisen/habits:habits-webapp
+    build: ./
+    command: ['gunicorn', '--workers=1', '--threads=4', 'habits.app:create_app()', '--bind', '0.0.0.0:80', '--reload']
+    # command: ['sleep', '5000']
     ports:
-      - "80:8000"
+      - "80:80"
     environment:
       - PYTHONUNBUFFERED=1  # Necessary to flush stdout immediately instead of buffering it for docker compose
