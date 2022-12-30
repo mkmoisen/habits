@@ -5,7 +5,10 @@
       "name": "webapp",
       "image": "mkmoisen/habits:latest",
       "environment": [
-
+        {
+          "name": "PYTHONUNBUFFERED",
+          "value": "1"
+        }
       ],
       "portMappings": [
         {
