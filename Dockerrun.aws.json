@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "webapp",
-      "image": "mkmoisen/habits:habits-webapp",
+      "image": "mkmoisen/habits:latest",
       "environment": [
 
       ],
